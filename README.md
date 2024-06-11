@@ -1,9 +1,10 @@
 # Scrape-Google-Images
 Scrape images from Google Images based on a term. This can be used to generate datasets of images for research or AI. It will get exactly 20 images per term.
 
-# Download
+# Install
 ```bash
 > git clone git@github.com:flipit001/ScrapeGoogleImages.git
+> pip3 install -r requirements.txt
 ```
 # Use
 ```bash
