@@ -7,15 +7,23 @@ Scrape images from Google Images based on a term. This can be used to generate d
 ```
 # Use
 ```bash
-> python3 scrape_images.py {JSON FILE} {DOWNLOAD_PATH}
+> python3 scrape_images.py {CONFIG JSON FILE}
 ```
 ## Example
 ```bash
 > mkdir images # make sure this directory is empty
 > cat example.json
-[
-    "dog",
-    "elephant"
-]
-> python3 scrape_images.py example.json ./images/
+{
+    "DownloadPath": "./images/",
+    "ThreadCount": 1,
+    "Terms": [
+        "Dog",
+        "Elephant",
+        "Badger",
+        "Bear",
+        "Falcon",
+        "Tiger"
+    ]
+}
+> python3 scrape_images.py example.json
 ```

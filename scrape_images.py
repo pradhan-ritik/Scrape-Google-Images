@@ -4,12 +4,31 @@ import re
 import sys
 import urllib.parse
 import json
+import math
+import threading
+
 
 IMG_SEARCH = re.compile(r"\<img\sclass\=\"[^\"]*\"\salt\=\"[^\"]*\"\ssrc\=\"([^\"]*)")
 
+def chunks(terms: list[str], N: int, thread_count: int) -> list[str]:
+    sep = math.ceil(N / thread_count)
+    for i in range(0, N, sep):
+        yield terms[i: i + sep]
+
+def scrape_google_images_threads(thread_count: int, terms: list[str], path: str):
+    N = len(terms)
+    threads = []
+    for chunk in chunks(terms, N, thread_count):
+        threads.append(threading.Thread(target=scrape_google_images, args=(chunk, path)))
+        
+    for i in range(thread_count):
+        threads[i].start()
+
+    for i in range(thread_count):
+        threads[i].join()
+
 def scrape_google_images(terms: list[str], path: str) -> None:
     for term in terms:
-
         encoded_term = urllib.parse.quote_plus(term)
 
         folder_path = os.path.join(path, encoded_term)
@@ -29,14 +48,20 @@ def scrape_google_images(terms: list[str], path: str) -> None:
             print(f"successfully downloaded {download_path}")
     
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        raise Exception("To use this file, run: python3 scrape_images.py {JSON FILE} {DOWNLOAD_PATH}")
+    if len(sys.argv) < 2:
+        raise Exception("To use this file, run: python3 scrape_images.py {CONFIG JSON FILE}")
 
     json_file = sys.argv[1]
-    path = sys.argv[2]
 
 
     with open(json_file, "r") as fh:
-        terms = json.load(fh)
+        data = json.load(fh)
 
-    scrape_google_images(terms, path)
+    path = data["DownloadPath"]
+    terms = data["Terms"]
+    thread_count = data["ThreadCount"]
+
+    if thread_count <= 1:
+        scrape_google_images(terms, path)
+    else:
+        scrape_google_images_threads(thread_count, terms, path)
