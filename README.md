@@ -33,6 +33,6 @@ Scrape images from Google Images based on search terms given to it. This can be 
 
 ```NumberOfImages```: The number of images for to it will ```try``` scrape for each term.
 
-```ThreadCount```: the amount of threads used to run the program.
+```ThreadCount```: The amount of threads used to run the program.
 
-```Terms```: The search terms.
+```Terms```: The search terms that it will use to get the images.
