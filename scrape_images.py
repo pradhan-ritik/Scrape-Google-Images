@@ -7,7 +7,7 @@ import json
 
 IMG_SEARCH = re.compile(r"\<img\sclass\=\"[^\"]*\"\salt\=\"[^\"]*\"\ssrc\=\"([^\"]*)")
 
-def scrape_google_images(terms, path):
+def scrape_google_images(terms: list[str], path: str):
     for term in terms:
 
         encoded_term = urllib.parse.quote_plus(term)
