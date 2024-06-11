@@ -1,5 +1,5 @@
 # Scrape-Google-Images
-Scrape images from Google Images based on a term. This can be used to generate datasets of images for research or AI. It will get exactly 20 images per term.
+Scrape images from Google Images based on search terms given to it. This can be used to generate datasets of images for research or AI.
 
 # Install
 ```bash
@@ -15,8 +15,9 @@ Scrape images from Google Images based on a term. This can be used to generate d
 > mkdir images # make sure this directory is empty
 > cat example.json
 {
-    "DownloadPath": "./images/",
-    "ThreadCount": 1,
+    "DownloadPath": "./imgs/",
+    "NumberOfImages": 22,
+    "ThreadCount": 2,
     "Terms": [
         "Dog",
         "Elephant",
@@ -28,3 +29,10 @@ Scrape images from Google Images based on a term. This can be used to generate d
 }
 > python3 scrape_images.py example.json
 ```
+```DownloadPath```: The path where the images will be downloaded to.
+
+```NumberOfImages```: The number of images for to it will ```try``` scrape for each term.
+
+```ThreadCount```: the amount of threads used to run the program.
+
+```Terms```: The search terms.
