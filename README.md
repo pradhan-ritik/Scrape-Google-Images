@@ -18,6 +18,7 @@ Scrape images from Google Images based on search terms given to it. This can be 
     "DownloadPath": "./imgs/",
     "NumberOfImages": 22,
     "ThreadCount": 2,
+    "Resolution": [null, null],
     "Terms": [
         "Dog",
         "Elephant",
@@ -34,5 +35,7 @@ Scrape images from Google Images based on search terms given to it. This can be 
 ```NumberOfImages```: The number of images for to it will ```try``` scrape for each term.
 
 ```ThreadCount```: The amount of threads used to run the program.
+
+```Resolution```: Set the Resolution of the images that will be downloaded. If you do not want to rescale them, put null as shown above. If either Width or Height is set to null, the image will not be rescaled
 
 ```Terms```: The search terms that it will use to get the images.

@@ -6,6 +6,8 @@ import urllib.parse
 import json
 import math
 import threading
+import PIL.Image
+import io
 
 
 IMG_SEARCH = re.compile(r"\<img\sclass\=\"[^\"]*\"\salt\=\"[^\"]*\"\ssrc\=\"([^\"]*)")
@@ -15,11 +17,11 @@ def chunks(terms: list[str], N: int, thread_count: int) -> list[str]:
     for i in range(0, N, sep):
         yield terms[i: i + sep]
 
-def scrape_google_images_threads(thread_count: int, terms: list[str], path: str, num_of_images: int):
+def scrape_google_images_threads(thread_count: int, terms: list[str], path: str, num_of_images: int, resolution: tuple[int, int], is_changed_resolution: bool):
     N = len(terms)
     threads = []
     for chunk in chunks(terms, N, thread_count):
-        threads.append(threading.Thread(target=scrape_google_images, args=(chunk, path, num_of_images)))
+        threads.append(threading.Thread(target=scrape_google_images, args=(chunk, path, num_of_images, resolution, is_changed_resolution)))
         
     for i in range(thread_count):
         threads[i].start()
@@ -27,7 +29,7 @@ def scrape_google_images_threads(thread_count: int, terms: list[str], path: str,
     for i in range(thread_count):
         threads[i].join()
 
-def scrape_google_images(terms: list[str], path: str, num_of_images: int) -> None:
+def scrape_google_images(terms: list[str], path: str, num_of_images: int, resolution: tuple[int, int], is_changed_resolution: bool) -> None:
     for term in terms:
         encoded_term = urllib.parse.quote_plus(term)
         folder_path = os.path.join(path, encoded_term)
@@ -47,10 +49,14 @@ def scrape_google_images(terms: list[str], path: str, num_of_images: int) -> Non
             for idx, img in enumerate(imgs):
                 if idx + i >= num_of_images:
                     break
-                img_to_write = requests.get(img)
                 download_path = os.path.join(folder_path, f"{encoded_term}_{idx+1+i}.jpg") 
-                with open(download_path, "wb") as fh:
-                    fh.write(img_to_write.content)
+                img_to_write = requests.get(img).content
+                if is_changed_resolution:
+                    PIL.Image.open(io.BytesIO(img_to_write)).resize(resolution).convert('RGB').save(download_path, "JPEG")
+
+                else:
+                    PIL.Image.open(io.BytesIO(img_to_write)).convert('RGB').save(download_path, "JPEG")
+
                 print(f"successfully downloaded {download_path}")
     
 if __name__ == "__main__":
@@ -67,8 +73,10 @@ if __name__ == "__main__":
     terms = data["Terms"]
     num_of_images = data["NumberOfImages"]
     thread_count = data["ThreadCount"]
+    resolution = tuple(data["Resolution"])
+    is_changed_resolution = resolution[0] and resolution[1]
 
     if thread_count <= 1:
-        scrape_google_images(terms, path, num_of_images)
+        scrape_google_images(terms, path, num_of_images, resolution, is_changed_resolution)
     else:
-        scrape_google_images_threads(thread_count, terms, path, num_of_images)
+        scrape_google_images_threads(thread_count, terms, path, num_of_images, resolution, is_changed_resolution)
