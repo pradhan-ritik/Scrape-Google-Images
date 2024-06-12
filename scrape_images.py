@@ -57,7 +57,8 @@ def scrape_google_images(terms: list[str], path: str, num_of_images: int, resolu
                 else:
                     PIL.Image.open(io.BytesIO(img_to_write)).convert('RGB').save(download_path, "JPEG")
 
-                print(f"successfully downloaded {download_path}")
+                # print(f"successfully downloaded {download_path}")
+            print(f"finished with batch {int(i/20)+1} for {term}")
     
 if __name__ == "__main__":
     if len(sys.argv) < 2:
