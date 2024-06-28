@@ -15,7 +15,7 @@ Scrape images from Google Images based on search terms given to it. This can be 
 > mkdir images # make sure this directory is empty
 > cat example.json
 {
-    "DownloadPath": "./imgs/",
+    "DownloadPath": "./images/",
     "NumberOfImages": 22,
     "ThreadCount": 2,
     "Resolution": [null, null],
