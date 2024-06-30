@@ -14,5 +14,5 @@ if __name__ == "__main__":
     number_of_images: The number of images that the program will (try) to scrape from google images.
     thread_count: The number of threads used to scrape the images, 1 by default.
     resolution: The resolution the images will be changed to. If either width of height is none, the changing of resolution will not occur, [None, None] by default.
-    log: should the output be printed to the terminal, False by default.
+    log: should the output be printed to the terminal, False by default. For logging it will print 'batches' and how many batches it is done with. One batch is 20 images or one page of google images.
     """

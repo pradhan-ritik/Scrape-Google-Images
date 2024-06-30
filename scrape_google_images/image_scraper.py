@@ -1,13 +1,11 @@
 import os.path
 import requests
 import re
-import sys
 import urllib.parse
-import json
 import math
-import threading
 import PIL.Image
 import io
+import multiprocessing
 
 __all__ = [
     "scrape_google_images"
@@ -24,7 +22,7 @@ def _scrape_google_images_threads(thread_count: int, terms: list[str], path: str
     N = len(terms)
     threads = []
     for chunk in _chunks(terms, N, thread_count):
-        threads.append(threading.Thread(target=_scrape_google_images, args=(chunk, path, num_of_images, resolution, is_changed_resolution, log)))
+        threads.append(multiprocessing.Process(target=_scrape_google_images, args=(chunk, path, num_of_images, resolution, is_changed_resolution, log)))
         
     for i in range(thread_count):
         threads[i].start()
