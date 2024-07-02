@@ -3,39 +3,21 @@ Scrape images from Google Images based on search terms given to it. This can be 
 
 # Install
 ```bash
-> git clone git@github.com:flipit001/ScrapeGoogleImages.git
-> pip3 install -r requirements.txt
+pip3 install scrape-google-images
 ```
-# Use
-```bash
-> python3 scrape_images.py {CONFIG JSON FILE}
+# Example
+```py
+>>> from scrape_google_images import scrape_google_images
+>>> scrape_google_images(download_path="./images/", terms=["dog", "monkey", "elephant"], number_of_images=25, thread_count=3, resolution=[None, None], log=False)
 ```
-## Example
-```bash
-> mkdir images # make sure this directory is empty
-> cat example.json
-{
-    "DownloadPath": "./images/",
-    "NumberOfImages": 22,
-    "ThreadCount": 2,
-    "Resolution": [null, null],
-    "Terms": [
-        "Dog",
-        "Elephant",
-        "Badger",
-        "Bear",
-        "Falcon",
-        "Tiger"
-    ]
-}
-> python3 scrape_images.py example.json
-```
-```DownloadPath```: The path where the images will be downloaded to.
+```DownloadPath```: The path to an empty directory where the images will be downloaded to.
+
+```Terms```: The search terms that it will use to get the images.
 
 ```NumberOfImages```: The number of images for to it will ```try``` scrape for each term.
 
 ```ThreadCount```: The amount of threads used to run the program.
 
-```Resolution```: Set the Resolution of the images that will be downloaded. If you do not want to rescale them, put null as shown above. If either Width or Height is set to null, the image will not be rescaled
+```Resolution```: Set the Resolution of the images that will be downloaded. If you do not want to rescale them, put null as shown above. If either Width or Height is set to None, the image will not be rescaled
 
-```Terms```: The search terms that it will use to get the images.
+```log```: Print logs/debugs to see what the program is doing.

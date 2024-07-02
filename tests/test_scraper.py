@@ -1,6 +1,6 @@
 # path setup 
-import sys
-sys.path.append("..")
+# import sys
+# sys.path.append("..")
 # -------------------
 
 from scrape_google_images import scrape_google_images
