@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scrape_google_images"
+version = "1.0.2"
+authors = [
+    {   name="Ritik Pradhan",   email="pradhanr@mailfence.com"    }
+]
+description = "A python package to scrape images from Google Images."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [    "pillow", "requests"    ]
+
+[project.urls]
+Homepage = "https://github.com/pradhan-ritik/Scrape-Google-Images"
+Issues = "https://github.com/pradhan-ritik/Scrape-Google-Images/issues"
