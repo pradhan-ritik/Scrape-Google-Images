@@ -21,3 +21,6 @@ pip3 install scrape-google-images
 ```Resolution```: Set the Resolution of the images that will be downloaded. If you do not want to rescale them, put null as shown above. If either Width or Height is set to None, the image will not be rescaled
 
 ```log```: Print logs/debugs to see what the program is doing.
+
+# Contributing
+If you want to contribute, you can fork this repository and change the code as much as you want. Once you think your code is ready, you can submit a pull request to have the code reviewed by me and hopefully approve your changes.
