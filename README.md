@@ -1,5 +1,5 @@
 # Scrape-Google-Images
-![PyPI - Downloads](https://img.shields.io/pypi/dm/your-package-name)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/scrape-google-images)
 
 Scrape images from Google Images based on search terms given to it. This can be used to generate datasets of images for research or AI.
 
